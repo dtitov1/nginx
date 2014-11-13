@@ -1,4 +1,4 @@
 nginx
 =====
 
-nginx config
+nginx config from /etc/hginx on pookybox
