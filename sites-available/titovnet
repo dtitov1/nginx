@@ -1,0 +1,42 @@
+# NodeJS for titovnet.com - running on port 3000
+upstream nodejs_titovnet {
+    server 127.0.0.1:3000;
+}
+
+server {
+        listen 80;
+
+
+        location / {
+                root /www/titovnet;
+        }
+
+        location /code {
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header Host $http_host;       
+                proxy_set_header X-NginX-Proxy true;
+                proxy_pass http://nodejs_titovnet/;
+                proxy_redirect off;
+        }
+
+        location /zeland/ {
+                root /www;
+                #rewrite ^/zeland/(.*)$ /$1 break;
+                autoindex on;
+                auth_basic "Restricted airspace";
+                auth_basic_user_file /etc/nginx/htpasswd;
+        }
+
+        location /bainbridge {
+                root /www;
+                autoindex on;
+                auth_basic "Restricted airspace";
+                auth_basic_user_file /etc/nginx/htpasswd;
+        }
+
+        location /nadyatitova {
+                root /www;
+        }
+}
+
