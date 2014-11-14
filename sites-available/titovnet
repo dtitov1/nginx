@@ -28,13 +28,6 @@ server {
                 auth_basic_user_file /etc/nginx/htpasswd;
         }
 
-        location /bainbridge {
-                root /www;
-                autoindex on;
-                auth_basic "Restricted airspace";
-                auth_basic_user_file /etc/nginx/htpasswd;
-        }
-
         location /nadyatitova {
                 root /www;
         }
